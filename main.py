@@ -2,6 +2,21 @@
 import Regex_Library
 from model import Books, Library
 
+def get_books():
+    name = input("Enter Book name ") 
+    author = input("Enter the Author's name ") 
+    genre = input("Enter the genre name ")    
+    
+    if not all([
+        Regex_Library.valid_text(name),
+        Regex_Library.valid_text(author),
+        Regex_Library.valid_text(genre)
+    ]):
+        print("Invalid characters detected")
+        return    
+    
+    return Books(name, author, genre)
+
     
 def main():
     library = Library("Book_name.txt")
@@ -20,24 +35,12 @@ def main():
 
         elif choice == 3:
             book = get_books()
-            library.donate_book(book)
-            print("Book donated successfully ")
-  
-
-def get_books():
-    name = input("Enter Book name ") 
-    author = input("Enter the Author's name ") 
-    genre = input("Enter the genre name ")    
-    
-    if not all([
-        Regex_Library.valid_text(name),
-        Regex_Library.valid_text(author),
-        Regex_Library.valid_text(genre)
-    ]):
-        print("Invalid characters detected")
-        return Books(name, author, genre)    
-
-
+            if book:
+                library.donate_book(book)
+                print("Book donated successfully ")
+        
+        elif choice == 4:
+            break
 
 if __name__ == "__main__":
     main()
